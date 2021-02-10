@@ -1,0 +1,6 @@
+- hosts:
+    - openwrt
+  roles:
+    - { role: 'gekmihesg.openwrt', tags: 'gekmihesg.openwrt' }
+    - { role: 'base' , tags: 'base'}
+    - { role: 'adblock' , tags: 'adblock'}

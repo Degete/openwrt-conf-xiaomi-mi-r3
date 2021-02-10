@@ -1,0 +1,33 @@
+- name: Install adblock
+  opkg:
+    name: adblock
+    state: present
+- name: Install libustream-mbedtls
+  opkg:
+    name: libustream-mbedtls
+    state: present
+- name: Install coreutils-sort
+  opkg:
+    name: coreutils-sort
+    state: present
+  ignore_errors: yes
+- name: Install luci-app-adblock
+  opkg:
+    name: luci-app-adblock
+    state: present
+- name: Enable Adblock
+  uci:
+    command: set
+    key: adblock.global.adb_enabled
+    value: "1"
+- name: Backup the blocklist
+  uci:
+    command: set
+    key: adblock.global.adb_backupdir
+    value: "/etc/adblock"
+- name: Save and apply
+  uci:
+    command: commit
+    notify: adblock
+- name: Restart adblock
+  command: /etc/init.d/adblock restart

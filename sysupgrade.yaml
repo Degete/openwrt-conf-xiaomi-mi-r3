@@ -1,0 +1,5 @@
+- hosts:
+    - openwrt
+  roles:
+    - { role: 'gekmihesg.openwrt', tags: 'gekmihesg.openwrt' }
+    - { role: 'sysupgrade' , tags: 'sysupgrade' }

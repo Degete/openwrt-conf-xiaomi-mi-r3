@@ -1,0 +1,16 @@
+- name: Install wget
+  opkg:
+    name: wget
+    state: present
+- name: Install curl
+  opkg:
+    name: curl
+    state: present
+- name: Install htop
+  opkg:
+    name: htop
+    state: present
+- name: Install zsh
+  opkg:
+    name: zsh
+    state: present
