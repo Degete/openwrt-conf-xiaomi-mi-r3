@@ -1,6 +1,13 @@
 - hosts:
     - openwrt
+  vars_prompt:
+    - name: ssid
+      prompt: Set WiFi name (SSID)
+      private: no
+    - name: password
+      prompt: Set WiFi password
+      private: no
   roles:
     - { role: 'gekmihesg.openwrt', tags: 'gekmihesg.openwrt' }
     - { role: 'base' , tags: 'base'}
-    - { role: 'adblock' , tags: 'adblock'}
+    # - { role: 'adblock' , tags: 'adblock'}

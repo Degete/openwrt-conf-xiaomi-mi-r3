@@ -3,7 +3,7 @@
     cmd: wget -qO- --no-check-certificate https://downloads.x-wrt.com/rom/ | grep -o -E 'href="([^"#]+)"' | cut -d'"' -f2 | grep 'miwifi-r3-squashfs-sysupgrade.bin' | awk '{print "https://downloads.x-wrt.com/rom/"$1}' | xargs wget -qO /tmp/sysupgrade.bin --no-check-certificate
 - name: Start sysupgrade
   nohup:
-    command: sysupgrade -q /tmp/sysupgrade.bin
+    command: sysupgrade -qn /tmp/sysupgrade.bin
 - name: Wait for reboot
   wait_for_connection:
     timeout: 300

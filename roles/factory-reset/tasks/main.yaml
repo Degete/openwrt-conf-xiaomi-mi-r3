@@ -1,0 +1,3 @@
+- name: Factory reset
+  nohup:
+    command: firstboot -y && reboot now

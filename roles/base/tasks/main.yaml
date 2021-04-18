@@ -1,16 +1,76 @@
-- name: Install wget
+- name: Install packages
   opkg:
-    name: wget
+    name: wget,curl,htop,zsh
     state: present
-- name: Install curl
-  opkg:
-    name: curl
-    state: present
-- name: Install htop
-  opkg:
-    name: htop
-    state: present
-- name: Install zsh
-  opkg:
-    name: zsh
-    state: present
+
+# Set bands
+- name: Set 5Ghz band (radio0)
+  uci:
+    command: set
+    key: wireless.radio0
+    value:
+      htmode: VHT80
+      channel: 44
+      country: JP
+      disabled: 0
+- name: Set 2.4Ghz band (radio1)
+  uci:
+    command: set
+    key: wireless.radio1
+    value:
+      htmode: HT20
+      channel: 11
+      country: JP
+      disabled: 0
+
+# Delete default SSID if exist
+- name: Delete default SSID on radio 0
+  ignore_errors: yes
+  uci:
+    command: delete
+    key: wireless.wifinet0
+- name: Delete default SSID on radio 1
+  ignore_errors: yes
+  uci:
+    command: delete
+    key: wireless.wifinet1
+
+- name: Add WiFi SSID (5Ghz)
+  uci:
+    command: set
+    key: wireless.wifinet0
+    value: "wifi-iface"
+- name: Set WiFi SSID (5Ghz)
+  uci:
+    command: set
+    key: wireless.wifinet0
+    value:
+      ssid: '{{ ssid }}'
+      encryption: psk2
+      device: radio0
+      mode: ap
+      network: lan
+      key: '{{ password }}'
+
+- name: Add WiFi SSID (2.4Ghz)
+  uci:
+    command: set
+    key: wireless.wifinet1
+    value: "wifi-iface"
+- name: Set WiFi SSID (2.4Ghz)
+  uci:
+    command: set
+    key: wireless.wifinet1
+    value:
+      ssid: '{{ ssid }}'
+      encryption: psk2
+      device: radio1
+      mode: ap
+      network: lan
+      key: '{{ password }}'
+
+# Apply changes
+- name: Commit changes
+  uci:
+    command: commit
+  notify: reload wifi
