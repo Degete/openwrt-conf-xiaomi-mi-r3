@@ -34,7 +34,18 @@
   uci:
     command: delete
     key: wireless.wifinet1
+- name: Delete Guest SSID on radio 0
+  ignore_errors: yes
+  uci:
+    command: delete
+    key: wireless.wifinet2
+- name: Delete Guest SSID on radio 1
+  ignore_errors: yes
+  uci:
+    command: delete
+    key: wireless.wifinet3
 
+# Set SSID
 - name: Add WiFi SSID (5Ghz)
   uci:
     command: set
@@ -50,7 +61,7 @@
       device: radio0
       mode: ap
       network: lan
-      key: '{{ password }}'
+      key: '{{ ssid_key }}'
 
 - name: Add WiFi SSID (2.4Ghz)
   uci:
@@ -67,7 +78,41 @@
       device: radio1
       mode: ap
       network: lan
-      key: '{{ password }}'
+      key: '{{ ssid_key }}'
+
+# Set Guest SSID
+- name: Add Guest WiFi SSID (5Ghz)
+  uci:
+    command: set
+    key: wireless.wifinet2
+    value: "wifi-iface"
+- name: Set Guest WiFi SSID (5Ghz)
+  uci:
+    command: set
+    key: wireless.wifinet2
+    value:
+      ssid: '{{ guest_ssid }}'
+      encryption: psk2
+      device: radio0
+      mode: ap
+      network: lan
+      key: '{{ guest_ssid_key }}'
+- name: Add Guest WiFi SSID (2.4Ghz)
+  uci:
+    command: set
+    key: wireless.wifinet3
+    value: "wifi-iface"
+- name: Set Guest WiFi SSID (2.4Ghz)
+  uci:
+    command: set
+    key: wireless.wifinet3
+    value:
+      ssid: '{{ guest_ssid }}'
+      encryption: psk2
+      device: radio1
+      mode: ap
+      network: lan
+      key: '{{ guest_ssid_key }}'
 
 # Apply changes
 - name: Commit changes

@@ -28,8 +28,12 @@ There are different playbooks which groups different roles:
 ### Requirements
 
 ```
-ansible-galaxy collection install -r requirements.yml
+ansible-galaxy collection install -r requirements.yaml
 ```
+
+### Config
+
+Before running the [openwrt playbook](./openwrt.yaml), please set the variables such as SSID's and SSID Key's. 
 
 ### Apply playbook
 
