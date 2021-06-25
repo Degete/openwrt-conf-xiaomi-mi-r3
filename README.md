@@ -1,5 +1,7 @@
-<p align="center">
-    <img src="https://github.com/degete/openwrt-conf/blob/main/openwrt.png?raw=true" height="200px"/>
+<p style="text-align: center">
+
+![OpenWRT](openwrt.png)
+
 </p>
 
 ## **OpenWrt Firmware (X-WRT) for Xiaomi Mi Router 3 (R3)**
@@ -15,10 +17,18 @@
 There are different playbooks which groups different roles:
 
 - `sysupgrade`: updates the firmware to the latest version available on the website.
+  - Default X-WRT information:
+    - SSID：X-WRT_XXXX
+    - SSID Password：88888888
+    - IP：http://192.168.15.1/
+    - Authentication：root/admin
   - Remember to enable SSH and root authentication after factory reset
+  
 
-<p align="center">
-    <img src="https://github.com/degete/openwrt-conf/blob/main/ssh.png?raw=true" height="200px"/>
+<p style="text-align: center">
+
+![SSH Config](ssh.png)
+
 </p>
 
 - `openwrt`
@@ -33,7 +43,7 @@ ansible-galaxy collection install -r requirements.yaml
 
 ### Config
 
-Before running the [openwrt playbook](./openwrt.yaml), please set the variables such as SSID's and SSID Key's. 
+Before running the [openwrt playbook](./openwrt.yaml), please set the variables such as SSID's and SSID Key's.
 
 ### Apply playbook
 
